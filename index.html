@@ -1,0 +1,1037 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=no">
+    <title>The Bestie Experience | 2026 Infinity Edition</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@200;300;400;500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================================================
+           1. CORE ARCHITECTURE & GLOBAL VARIABLES
+        ========================================================================= */
+        :root {
+            --bg-dark-prime: #0a090d;
+            --bg-dark-soft: #121016;
+            --accent-color: #ff5e7e;
+            --accent-soft: rgba(255, 94, 126, 0.15);
+            --glass-prime: rgba(20, 18, 26, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.07);
+            --text-light: #f3f0f7;
+            --text-muted: #8e8a99;
+            --notebook-blue: #b3d1ff;
+            --notebook-red: #ff9999;
+            --transition-curve: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark-prime);
+            color: var(--text-light);
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        #particle-ambient-vault {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #161224 0%, #06050a 100%);
+        }
+
+        /* =========================================================================
+           2. COMPREHENSIVE ANDROID & MOBILE OPTIMIZATIONS
+        ========================================================================= */
+        @media (max-width: 768px) {
+            body {
+                height: 100vh;
+                width: 100vw;
+                overflow: hidden;
+            }
+
+            h1 { font-size: 2.0rem !important; line-height: 1.2; }
+            h2 { font-size: 1.6rem !important; line-height: 1.2; margin-bottom: 12px !important; }
+            p { font-size: 0.90rem !important; line-height: 1.6; }
+
+            .glass-box {
+                padding: 20px !important;
+                width: 94% !important;
+                max-height: 78vh !important;
+                overflow-y: auto !important;
+                border-radius: 18px !important;
+            }
+
+            .split-container {
+                flex-direction: column !important;
+                gap: 15px !important;
+                max-height: 75vh !important;
+                overflow-y: auto !important;
+            }
+            .pointers-side, .photo-side {
+                width: 100% !important;
+                flex: none !important;
+            }
+            .highlight-photo {
+                width: 160px !important;
+                height: 160px !important;
+                border-width: 6px !important;
+            }
+
+            .flip-card {
+                width: 92% !important;
+                height: 58vh !important;
+            }
+            .flip-front, .flip-back {
+                padding: 15px !important;
+            }
+            .letter-text {
+                font-size: 1.0rem !important;
+                overflow-y: auto !important;
+                max-height: 75%;
+                width: 100%;
+            }
+
+            .choice-container {
+                flex-direction: column !important;
+                gap: 10px !important;
+                margin-top: 12px !important;
+            }
+            .choice-card {
+                padding: 14px !important;
+                font-size: 0.95rem !important;
+            }
+
+            .notebook-container {
+                width: 96% !important;
+                height: 82vh !important;
+                border-left-width: 5px !important;
+            }
+            .notebook-page-layer {
+                padding: 1.2rem 0.8rem 1.2rem 2.2rem !important;
+                background-size: 100% 1.75rem !important;
+            }
+            .notebook-page-layer::before {
+                left: 1.8rem !important;
+            }
+            .notebook-header {
+                font-size: 1.05rem !important;
+            }
+            .notebook-body {
+                font-size: 1.2rem !important;
+                line-height: 1.75rem !important;
+            }
+            
+            .scrapbook-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
+            }
+        }
+
+        /* =========================================================================
+           3. VIEWPORT WINDOW MANAGEMENT (SLIDE TRANSLATION DECK)
+        ========================================================================= */
+        .stage {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            perspective: 1400px;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.93) translateY(30px);
+            transition: all 0.8s var(--transition-curve);
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        /* =========================================================================
+           4. PREMIUM LAYOUT ELEMENTS & UI SPECIFICS
+        ========================================================================= */
+        .glass-box {
+            background: var(--glass-prime);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 45px;
+            border-radius: 28px;
+            max-width: 850px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.4rem;
+            font-style: italic;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+        p {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #d1ced6;
+            font-weight: 300;
+        }
+
+        /* Split-Panel Mechanics */
+        .split-container {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            text-align: left;
+            margin-top: 20px;
+        }
+        .pointers-side {
+            flex: 1.2;
+        }
+        .photo-side {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .highlight-photo {
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            border: 10px solid rgba(255, 255, 255, 0.03);
+            object-fit: cover;
+            transition: transform 0.5s var(--transition-curve);
+        }
+        .highlight-photo:hover {
+            transform: scale(1.04) rotate(2deg);
+        }
+
+        .bullet-point-entry {
+            margin-bottom: 18px;
+            position: relative;
+            padding-left: 25px;
+            font-size: 0.98rem;
+            line-height: 1.6;
+            color: #e2dfe6;
+        }
+        .bullet-point-entry::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        /* Interactive Flip Mechanism */
+        .flip-card {
+            width: 550px;
+            height: 380px;
+            perspective: 1500px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+        .flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-front, .flip-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 24px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid var(--glass-border);
+        }
+        .flip-front {
+            background: linear-gradient(135deg, #181522 0%, #0d0b12 100%);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            justify-content: center;
+        }
+        .flip-back {
+            background: linear-gradient(135deg, #22151b 0%, #120b0e 100%);
+            transform: rotateY(180deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            justify-content: flex-start; /* Prevents center-align text bleeding */
+        }
+
+        /* Global Letter Text & Scrollbar Fix */
+        .letter-text {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 15px;
+            text-align: left;
+        }
+        .letter-text::-webkit-scrollbar {
+            width: 5px;
+        }
+        .letter-text::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        .letter-text::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        /* Choice Engines (This or That) */
+        .choice-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+        }
+        .choice-card {
+            flex: 1;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-curve);
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        .choice-card:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent-color);
+            transform: translateY(-4px);
+        }
+
+        /* Lined Notebook Simulation System */
+        .notebook-container {
+            width: 650px;
+            height: 440px;
+            background: #fbfaf5;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,0,0,0.05);
+            border-left: 10px solid #c94a53;
+            border-radius: 6px 16px 16px 6px;
+            overflow: hidden;
+            margin-top: 15px;
+            position: relative;
+        }
+        .notebook-page-layer {
+            width: 100%;
+            height: 100%;
+            padding: 2rem 2rem 2rem 4rem;
+            background-image: linear-gradient(var(--notebook-blue) 1px, transparent 1px);
+            background-size: 100% 2.0rem;
+            position: relative;
+            text-align: left;
+            overflow-y: auto;
+        }
+        .notebook-page-layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 3.2rem;
+            width: 2px;
+            height: 100%;
+            background-color: var(--notebook-red);
+        }
+        .notebook-header {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: #615e56;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        .notebook-body {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.55rem;
+            color: #2b2a27;
+            line-height: 2.0rem;
+        }
+
+        /* Photo Pop-up Modal Subsystem */
+        #photoMessageModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(10, 9, 13, 0.85);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            transition: opacity 0.4s var(--transition-curve);
+        }
+        #photoMessageModal.active {
+            opacity: 1;
+        }
+        .modal-content-box {
+            background: var(--glass-prime);
+            border: 1px solid var(--accent-color);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 85%;
+            transform: scale(0.9);
+            transition: transform 0.4s var(--transition-curve);
+        }
+        #photoMessageModal.active .modal-content-box {
+            transform: scale(1);
+        }
+        .modal-text {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        /* Navigation Mechanics */
+        .nav-footer-controls {
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 9999;
+        }
+        .btn {
+            padding: 14px 40px;
+            border-radius: 50px;
+            border: 1px solid var(--accent-color);
+            background: transparent;
+            color: var(--accent-color);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:hover:not(:disabled) {
+            background: var(--accent-color);
+            color: var(--bg-dark-prime);
+        }
+        .btn:disabled {
+            opacity: 0.15;
+            cursor: not-allowed;
+            border-color: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.05);
+        }
+
+        /* Shattering Matrix Subsystem */
+        #shatterContainerMatrix {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 8000;
+            background: var(--bg-dark-prime);
+        }
+        .tile-grid-layer {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            width: 320px;
+            height: 320px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            gap: 2px;
+        }
+        .tile-node {
+            background-image: url('1.jpeg');
+            background-size: 320px 320px;
+            transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .phrase-board-unrolled {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .phrase-card-node {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+        .guj-label { color: var(--accent-color); font-weight: 500; margin-right: 5px; }
+
+    </style>
+</head>
+<body>
+
+    <canvas id="particle-ambient-vault"></canvas>
+    
+    <div id="shatterContainerMatrix">
+        <div class="tile-grid-layer" id="tileGridEngineBox"></div>
+        <div id="afterShatterPromptField" style="display:none; position:absolute; top:75%; width:100%; text-align:center; font-family:'Playfair Display'; font-style:italic; font-size:1.5rem;">The profile layer has fractured cleanly. Proceeding to inner matrix.</div>
+    </div>
+
+    <div id="photoMessageModal">
+        <div class="modal-content-box">
+            <p class="modal-text" id="modalMessageContent">Encrypted Log Retrieved.</p>
+            <button class="btn" onclick="closePhotoModal()" style="padding: 10px 30px; font-size: 0.85rem;">ACKNOWLEDGE</button>
+        </div>
+    </div>
+
+    <audio id="bgPlayerAudio" loop src="bg.mp3"></audio>
+    <audio id="khatMusicTrack" src="khat.mp3"></audio>
+
+    <div class="stage" id="experienceViewportStage">
+
+        <section class="slide active" id="slideIndex1">
+            <div class="glass-box">
+                <h1>The Bestie Experience</h1>
+                <h2 style="font-size:1.4rem; font-family:'Poppins'; text-transform:uppercase; letter-spacing:4px; margin-bottom:15px;">2026 Infinity Edition</h2>
+                <p>An archival interface built explicitly to capture coordinates of an unforgettable bond. Stabilized, unrolled, and optimized across all framework levels.</p>
+                <div style="margin-top: 30px;">
+                    <button class="btn" onclick="initiateAudioFailsafeEngine()" style="padding: 10px 25px; font-size: 0.8rem;">INITIALIZE CHANNEL AUDIO</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex2">
+            <div class="glass-box" style="text-align: left;">
+                <h2>The Convergence Log</h2>
+                <p style="margin-bottom: 15px;">It started as just a simple conversation online that I never expected to expand into something structural. Usually, I take a significant amount of time to analyze patterns and fully adjust to a node profile, but our parameters lined up immediately.</p>
+                <p>The way you joke around, the subtle balance of your energy—it naturally became a safe comfort zone without even trying to. Your energy itself becomes distinct because of how naturally comforting and completely genuine it tracks across the network lines.</p>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex3">
+            <div class="glass-box">
+                <h2>Why You're Top Tier</h2>
+                <div class="split-container">
+                    <div class="pointers-side">
+                        <div class="bullet-point-entry"><strong>Pure Authenticity:</strong> You have consistently felt genuine to me, a rare quality that stands out across empty digital background signals.</div>
+                        <div class="bullet-point-entry"><strong>Dual Cognitive Processing:</strong> Highly intelligent and quick-witted while still acting completely unserious five minutes later.</div>
+                        <div class="bullet-point-entry"><strong>Unfiltered Transparency:</strong> Your structural character has never felt emotionally fake to me when processing real-time communication frames.</div>
+                    </div>
+                    <div class="photo-side">
+                        <img src="2.jpeg" class="highlight-photo" alt="Core Memory Node" style="cursor:pointer;" onclick="showPhotoMessage('Authenticity scan verified at maximum threshold.')" onerror="this.style.display='none';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex4">
+            <div class="glass-box">
+                <h2>Phrase Intersection Registry</h2>
+                <p>Tracking the structural vocabulary, localized linguistic tags, and expressions that populated our daily communications console.</p>
+                <div class="phrase-board-unrolled">
+                    <div class="phrase-card-node"><span class="guj-label">Expression:</span>Lay Bhari</div>
+                    <div class="phrase-card-node"><span class="guj-label">Tag:</span>Unserious Unit</div>
+                    <div class="phrase-card-node"><span class="guj-label">Status:</span>Comfort Zone</div>
+                    <div class="phrase-card-node"><span class="guj-label">Metric:</span>Zero Filter</div>
+                    <div class="phrase-card-node"><span class="guj-label">Variable:</span>Top Tier Bestie</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex5">
+            <div class="glass-box">
+                <h2>Memory Archive: Vector 01</h2>
+                <div class="photo-side" style="margin: 20px auto; flex: none;">
+                    <img src="1.png" class="highlight-photo" alt="Log 1" style="cursor:pointer;" onclick="showPhotoMessage('System Note: Core baseline coordinates securely locked in the vault.')" onerror="this.style.display='none';">
+                </div>
+                 <p style="margin-top: 25px;">When I say u r god's fav this is what I mean.... so don't hurt yourself cuz of others nd chill..... (Also If the world is mean to u i'll be your listner😉 always behind u🫂 ).</p>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex6">
+            <div class="glass-box">
+                <h2>Memory Archive: Reference</h2>
+                <div class="photo-side" style="margin: 20px auto; flex: none;">
+                    <img src="3.png" class="highlight-photo" alt="Log 2" style="cursor:pointer;" onclick="showPhotoMessage('System Note: Chat syntax parameters verified and stabilized.')" onerror="this.style.display='none';">
+                </div>
+                <p style="margin-top: 25px;">Bruh I don't have yr photos so I don't have any other option than using chatgpt sorry</p>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex7">
+            <div class="glass-box">
+                <h2>Memory Archive: No-Look Capture</h2>
+                <div class="photo-side" style="margin: 20px auto; flex: none;">
+                    <img src="4.png" class="highlight-photo" alt="Log 3" style="cursor:pointer;" onclick="showPhotoMessage('System Note: Visual matrix successfully logged without visual confirmation.')" onerror="this.style.display='none';">
+                </div>
+                <p style="margin-top: 25px;">I wished kash 1 photo toh hota.... btw enjoyed yr bday?? U once said "Your bday ain't special for u..... i tried making it good via online though</p>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex8">
+            <div class="glass-box">
+                <h2>The Unspoken Chapters</h2>
+                <p>Click the document interface envelope below to reveal the encrypted letter core logs.</p>
+                <div class="flip-card" id="letterFlipElementBox" onclick="toggleLetterCardFlipState()">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div style="font-size:3.5rem; margin-bottom:15px; color:var(--accent-color);">✉️</div>
+                            <h3 style="font-family:'Playfair Display'; font-style:italic; font-size:1.6rem;">To: Unforgettable Node</h3>
+                            <p style="font-size:0.85rem; color:var(--text-muted); margin-top:10px;">CLICK TO DECRYPT SECURITY HEADER</p>
+                        </div>
+                        <div class="flip-back">
+                            <div class="letter-text">
+                                <p style="font-size:0.9rem; color:#f1ecf7; line-height:1.6;">
+                                    I don't even know where to start with this letter because there are so many things I want to say but I also don't want to say them in a way that makes you feel uncomfortable or puts any pressure on you. I just want you to know that you are truly one of the most special people in my life and I am so grateful for our connection. You have brought so much joy, laughter, and comfort into my world and I can't imagine not having you in it. Your energy is like a warm hug that I can always count on, and your presence alone has the power to brighten even my darkest days. I admire your authenticity, your kindness, and the way you effortlessly make everyone around you feel at ease. You have a unique ability to connect with people on a deep level, and I feel incredibly lucky to be one of those people. Thank you for being you, for sharing your light with me, and for being such an important part of my life. <br><br>
+                                    Look I don't even want u to prioritize me all the time or share me every single detail. I just hope u remember that there is someone out here who thinks you are truly amazing and who will always be here to support you no matter what, Look I know life can be tough and there will be times when you feel down or like you're not good enough, but please remember that you are more than enough just as you are. You have so much to offer the world and I hope you never forget that. I am here for you through thick and thin, and I will always be cheering you on from the sidelines, <br><br>
+                                    Also I'd rather sit withh in your worst moements than find out you went through them thinking u had to do it alone, but no I m there not physically but emotionally and spiritually and I hope that means something to you. You are not alone in this world, and you have a friend in me who will always be here to listen, to support, and to remind you of how truly incredible you are. <br><br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex9">
+            <div class="glass-box">
+                <h2>Configuration Engine: Phase I</h2>
+                <p>xWhat's your preference?</p>
+                <div class="choice-container">
+                    <div class="choice-card" onclick="registerAestheticChoice(1, 'A')">Sweet people 😊</div>
+                    <div class="choice-card" onclick="registerAestheticChoice(1, 'B')">Cold-People</div>
+                </div>
+                <div id="choiceStatusField1" style="margin-top:20px; font-size:0.85rem; color:var(--text-muted); font-family:'Poppins';">EVALUATION BASELINE: PENDING</div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex10">
+            <div class="glass-box">
+                <h2>Configuration Engine: Phase II</h2>
+                <p>What's your preference?</p>
+                <div class="choice-container">
+                    <div class="choice-card" onclick="registerAestheticChoice(2, 'A')">Late replies</div>
+                    <div class="choice-card" onclick="registerAestheticChoice(2, 'B')">Fast replies with concise messages 🚀</div>
+                </div>
+                <div id="choiceStatusField2" style="margin-top:20px; font-size:0.85rem; color:var(--text-muted); font-family:'Poppins';">EVALUATION BASELINE: PENDING</div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex11">
+            <div class="glass-box">
+                <h2>Integrity Diagnostic Terminal</h2>
+                <p id="quizQuestionDisplayField" style="font-size:1.2rem; margin-bottom:20px; font-weight:400; color:#fff;">Loading Matrix Question Parameters...</p>
+                <div style="display:flex; flex-direction:column; gap:12px; width:100%;" id="quizAnswersLayoutContainer">
+                    </div>
+                <div id="quizEvaluationMetricText" style="margin-top:20px; font-family:'Poppins'; font-size:0.8rem; color:var(--text-muted); letter-spacing:1px;">DIAGNOSTIC INDEX: 1 / 3</div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex12">
+            <div class="glass-box">
+                <h2>The Lined Notebook Simulation</h2>
+                <p>Raw text buffers extracted verbatim from local memory layers.</p>
+                <div class="notebook-container">
+                    <div class="notebook-page-layer">
+                        <div class="notebook-header">System Log Entry: Unedited</div>
+                        <div class="notebook-body">
+                            I am sorry for that!!, but I trusted my bond and also... I genuinely think you have a unique combination of qualities that make you truly special in ways that deserve to be noticed, even if you don't always see it in yourself. You have real personality in everything you do...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex13">
+            <div class="glass-box" style="text-align: left;">
+                <h2>Signal Analysis Terminal</h2>
+                <p style="margin-bottom:15px;">"Never have an Impact in yr life like Seehaj..." — Reading this across the stream interface was noted cleanly in the log history files. Every external element introduces temporary distortion parameters inside an active relationship matrix.</p>
+                <p style="margin-bottom:15px;">But core structural parameters do not get written over by standard background processes. Regardless of peripheral signal noise or channel dampening patterns, what was built remains completely fixed in the archive framework indices.</p>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex14">
+            <div class="glass-box">
+                <h2>Heart-Rate Sync Interactive Metric</h2>
+                <p>Click the interface node target rapidly within a 5-second tracking window to calculate active synchronization speed parameters.</p>
+                <div style="margin: 25px auto; width:100px; height:100px; background:var(--accent-soft); border:2px solid var(--accent-color); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:2.5rem; cursor:pointer;" id="heartClickTargetNode" onclick="triggerHeartSyncPulseEvent()">❤️</div>
+                <div style="display:flex; justify-content:space-between; width:100%; font-family:'Poppins'; font-size:0.85rem; color:var(--text-muted);">
+                    <span id="heartCountLabelDisplay">TOTAL PULSES: 0</span>
+                    <span id="heartTimerLabelDisplay">TIME WINDOW: REMAINING</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex15">
+            <div class="glass-box">
+                <h2>Profile Matrix Exploder</h2>
+                <p>Initialize the dynamic image-shattering engine to trigger structural layer division across 16 matrix tiles.</p>
+                <div style="margin-top:30px;">
+                    <button class="btn" onclick="executeProfileShatterEngineSequence()">ENGAGE SHATTER PROTOCOL</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex16">
+            <div class="glass-box" style="text-align:left;">
+                <h2>Registry Time Archives</h2>
+                <div style="max-height:260px; overflow-y:auto; padding-right:10px;">
+                    <div style="border-left:2px solid var(--accent-color); padding-left:15px; margin-bottom:20px;">
+                        <span style="font-weight:600; font-size:0.9rem; color:var(--accent-color); display:block;">MID 2025 — CONVERGENCE INITIALIZATION</span>
+                        <p style="font-size:0.85rem; color:#b1adba; margin-top:4px;">First system text array exchanged via digital lobbies. Signal parameters verified clear instantly.</p>
+                    </div>
+                    <div style="border-left:2px solid var(--accent-color); padding-left:15px; margin-bottom:20px;">
+                        <span style="font-weight:600; font-size:0.9rem; color:var(--accent-color); display:block;">LATE 2025 — COMFORT MATRIX STABILIZATION</span>
+                        <p style="font-size:0.85rem; color:#b1adba; margin-top:4px;">Linguistic phrases like "Lay Bhari" integrated securely into the daily log registry interfaces.</p>
+                    </div>
+                    <div style="border-left:2px solid var(--accent-color); padding-left:15px; margin-bottom:20px;">
+                        <span style="font-weight:600; font-size:0.9rem; color:var(--accent-color); display:block;">EARLY 2026 — DYNAMIC FREQUENCY SHIFTS</span>
+                        <p style="font-size:0.85rem; color:#b1adba; margin-top:4px;">External signal interference logged and tracked. Central database modules maintained complete integrity values.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="slide" id="slideIndex17">
+            <div class="glass-box">
+                <div style="font-size:3.5rem; color:var(--accent-color); margin-bottom:10px;">✦</div>
+                <h1 style="font-size:2.8rem; font-family:'Poppins'; font-weight:600; letter-spacing:-1px; margin-bottom:15px;">Hitansh & Shruti</h1>
+                <p style="max-width:600px; margin:0 auto; font-size:1.1rem; font-weight:300; line-height:1.7;">
+                    No matter how spatial coordinates, server configurations, or interface routing matrices change across these external network frames, this timeline preserves absolute verification. May your 18th rotation execute flawlessly.
+                </p>
+                <div style="margin-top:35px; font-family:'Playfair Display'; font-style:italic; font-size:3rem; color:#fff; letter-spacing:4px;">HBD</div>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="nav-footer-controls">
+        <button class="btn" id="btnBackDeckControl" onclick="executeSlideDeckNavigation(-1)" disabled>BACK</button>
+        <button class="btn" id="btnNextDeckControl" onclick="executeSlideDeckNavigation(1)">NEXT</button>
+    </div>
+
+    <script>
+        /* =========================================================================
+           5. SYSTEM RUNTIME ENGINE & CORE VARIABLE HOOKS
+        ========================================================================= */
+        let activeSlideSystemIndex = 0;
+        const totalSlideDOMNodesArray = document.querySelectorAll('.slide');
+        
+        let heartSyncCounterTracker = 0;
+        let heartSyncTimerActiveFlag = false;
+        let heartSyncTimeRemainingInt = 5;
+        let heartSyncTimerReferenceInstance = null;
+
+        let activeQuizEvaluatorScore = 0;
+        let activeQuizStepTrackingIndex = 0;
+
+        /* --- EXPLICIT UNROLLED QUIZ DATA MATRICES --- */
+        const structuralQuizEngineDataArray = [
+            {
+                q: "Who would argue first?",
+                a: ["Hitansh", "Shruti", "Both", "Neither"],
+                target: 1
+            },
+            {
+                q: "Mitocondria is the ___________ of the cell?",
+                a: ["Powerhouse", "Love", "Brain"],
+                target: 0
+            },
+            {
+                q: "When did we sended DD in our main ID?",
+                a: ["IDK", "6th October 2025", "10th October", "9th November 2025"],
+                target: 1
+            }
+        ];
+
+        /* =========================================================================
+           6. SLIDE DECK VIEWPORT ENGINE NAVIGATOR
+        ========================================================================= */
+        function executeSlideDeckNavigation(navigationDirectionInteger) {
+            totalSlideDOMNodesArray[activeSlideSystemIndex].classList.remove('active');
+            activeSlideSystemIndex += navigationDirectionInteger;
+            totalSlideDOMNodesArray[activeSlideSystemIndex].classList.add('active');
+
+            document.getElementById('btnBackDeckControl').disabled = (activeSlideSystemIndex === 0);
+            document.getElementById('btnNextDeckControl').disabled = (activeSlideSystemIndex === totalSlideDOMNodesArray.length - 1);
+            
+            // Adjusted target slide index to 10 to account for newly injected photo slide frames
+            if(activeSlideSystemIndex === 10) {
+                renderQuizTerminalInterfaceStep();
+            }
+        }
+
+        /* =========================================================================
+           7. AMBIENT PARTICLE CANVAS SYSTEM ENGINE
+        ========================================================================= */
+        const canvasElementVaultObject = document.getElementById('particle-ambient-vault');
+        const canvasRenderingContextEngine = canvasElementVaultObject.getContext('2d');
+        let backgroundParticleTrackingArray = [];
+
+        function updateCanvasViewportBoundaries() {
+            canvasElementVaultObject.width = window.innerWidth;
+            canvasElementVaultObject.height = window.innerHeight;
+            backgroundParticleTrackingArray = [];
+            
+            // Explicit unrolled generation loop for coordinate structures
+            for(let i = 0; i < 40; i++) {
+                backgroundParticleTrackingArray.push({
+                    x: Math.random() * window.innerWidth,
+                    y: Math.random() * window.innerHeight,
+                    radius: Math.random() * 1.6 + 0.4,
+                    opacity: Math.random() * 0.5 + 0.1,
+                    speedY: -(Math.random() * 0.4 + 0.1)
+                });
+            }
+        }
+
+        function executeCanvasRenderIterationLoop() {
+            canvasRenderingContextEngine.clearRect(0, 0, canvasElementVaultObject.width, canvasElementVaultObject.height);
+            for(let i = 0; i < backgroundParticleTrackingArray.length; i++) {
+                let p = backgroundParticleTrackingArray[i];
+                canvasRenderingContextEngine.beginPath();
+                canvasRenderingContextEngine.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                canvasRenderingContextEngine.fillStyle = `rgba(255, 94, 126, ${p.opacity})`;
+                canvasRenderingContextEngine.fill();
+                p.y += p.speedY;
+                if(p.y < -10) {
+                    p.y = canvasElementVaultObject.height + 10;
+                    p.x = Math.random() * window.innerWidth;
+                }
+            }
+            requestAnimationFrame(executeCanvasRenderIterationLoop);
+        }
+        window.addEventListener('resize', updateCanvasViewportBoundaries);
+        updateCanvasViewportBoundaries();
+        executeCanvasRenderIterationLoop();
+
+        /* =========================================================================
+           8. AUDIO SAFETY INTERFACE COUPLING CONTROLLER
+        ========================================================================= */
+        function initiateAudioFailsafeEngine() {
+            const primaryPlayer = document.getElementById('bgPlayerAudio');
+            primaryPlayer.play().catch(err => {
+                console.log("Audio pipeline interaction constraint detected: " + err);
+            });
+            alert("AUDIO MODULE ACTIVATED: Ambient background channel initialized.");
+        }
+
+        /* =========================================================================
+           9. MULTI-STATE CARD FLIP ENGINES & MODAL LOGIC
+        ========================================================================= */
+        function toggleLetterCardFlipState() {
+            const cardBox = document.getElementById('letterFlipElementBox');
+            cardBox.classList.toggle('flipped');
+        }
+
+        function showPhotoMessage(message) {
+            const modal = document.getElementById('photoMessageModal');
+            document.getElementById('modalMessageContent').innerText = message;
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.classList.add('active'); }, 10);
+        }
+        
+        function closePhotoModal() {
+            const modal = document.getElementById('photoMessageModal');
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 400);
+        }
+
+        /* =========================================================================
+           10. SELECTION RECODING INTERACTIVE ACTIONS
+        ========================================================================= */
+        function registerAestheticChoice(stageLevelIndex, choiceIdentifierTag) {
+            const displayFieldId = `choiceStatusField${stageLevelIndex}`;
+            document.getElementById(displayFieldId).innerText = `SELECTION CACHED SECURELY: VARIANT [${choiceIdentifierTag}] LOGGED`;
+            setTimeout(() => {
+                executeSlideDeckNavigation(1);
+            }, 700);
+        }
+
+        /* =========================================================================
+           11. COMPREHENSIVE QUIZ MODULE METHOD LOGGER
+        ========================================================================= */
+        function renderQuizTerminalInterfaceStep() {
+            if(activeQuizStepTrackingIndex >= structuralQuizEngineDataArray.length) {
+                document.getElementById('quizQuestionDisplayField').innerText = "Diagnostic Analysis Execution Terminated.";
+                document.getElementById('quizAnswersLayoutContainer').innerHTML = `
+                    <div style="font-size:1.1rem; font-family:'Poppins'; font-weight:400; color:var(--accent-color); text-align:center; padding:20px;">
+                        DIAGNOSTIC ARCHIVE PROCESSING METRIC COMPLETE.<br>
+                        Score Output Precision: ${activeQuizEvaluatorScore} / ${structuralQuizEngineDataArray.length} Matches Found.
+                    </div>
+                `;
+                document.getElementById('quizEvaluationMetricText').innerText = "STATUS: FULL CONVERGENCE ACHIEVED";
+                return;
+            }
+
+            let currentDataNode = structuralQuizEngineDataArray[activeQuizStepTrackingIndex];
+            document.getElementById('quizQuestionDisplayField').innerText = currentDataNode.q;
+            document.getElementById('quizEvaluationMetricText').innerText = `DIAGNOSTIC INDEX: ${activeQuizStepTrackingIndex + 1} / ${structuralQuizEngineDataArray.length}`;
+
+            const answersLayoutContainerNode = document.getElementById('quizAnswersLayoutContainer');
+            answersLayoutContainerNode.innerHTML = '';
+
+            for(let i = 0; i < currentDataNode.a.length; i++) {
+                const choiceBtnElement = document.createElement('div');
+                choiceBtnElement.className = 'choice-card';
+                choiceBtnElement.style.padding = '14px';
+                choiceBtnElement.style.fontSize = '0.95rem';
+                choiceBtnElement.innerText = currentDataNode.a[i];
+                choiceBtnElement.onclick = function() {
+                    evaluateUserQuizSelectionAnswer(i);
+                };
+                answersLayoutContainerNode.appendChild(choiceBtnElement);
+            }
+        }
+
+        function evaluateUserQuizSelectionAnswer(selectedOptionIndexInteger) {
+            let coreNodeDataInstance = structuralQuizEngineDataArray[activeQuizStepTrackingIndex];
+            if(selectedOptionIndexInteger === coreNodeDataInstance.target) {
+                activeQuizEvaluatorScore++;
+            }
+            activeQuizStepTrackingIndex++;
+            renderQuizTerminalInterfaceStep();
+        }
+
+        /* =========================================================================
+           12. PULSE RECORDING METRIC ROUTINES
+        ========================================================================= */
+        function triggerHeartSyncPulseEvent() {
+            if(!heartSyncTimerActiveFlag) {
+                heartSyncTimerActiveFlag = true;
+                heartSyncCounterTracker = 0;
+                heartSyncTimeRemainingInt = 5;
+                document.getElementById('heartTimerLabelDisplay').innerText = `TIME WINDOW: ${heartSyncTimeRemainingInt}s`;
+                
+                heartSyncTimerReferenceInstance = setInterval(() => {
+                    heartSyncTimeRemainingInt--;
+                    document.getElementById('heartTimerLabelDisplay').innerText = `TIME WINDOW: ${heartSyncTimeRemainingInt}s`;
+                    
+                    if(heartSyncTimeRemainingInt <= 0) {
+                        clearInterval(heartSyncTimerReferenceInstance);
+                        heartSyncTimerActiveFlag = false;
+                        alert(`SYNC CALCULATED: Pulse sequence finalized at ${heartSyncCounterTracker} beats per segment.`);
+                    }
+                }, 1000);
+            }
+            
+            heartSyncCounterTracker++;
+            document.getElementById('heartCountLabelDisplay').innerText = `TOTAL PULSES: ${heartSyncCounterTracker}`;
+            
+            const heartTargetElementNode = document.getElementById('heartClickTargetNode');
+            heartTargetElementNode.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                heartTargetElementNode.style.transform = 'scale(1)';
+            }, 100);
+        }
+
+        /* =========================================================================
+           13. SHATTER ENGINE MATRIX SUBSYSTEM
+        ========================================================================= */
+        function executeProfileShatterEngineSequence() {
+            document.getElementById('bgPlayerAudio').pause();
+            const alternateKhatPlayer = document.getElementById('khatMusicTrack');
+            if(alternateKhatPlayer) {
+                alternateKhatPlayer.play().catch(() => {});
+            }
+
+            const shatterOverlayBox = document.getElementById('shatterContainerMatrix');
+            const tileGridBox = document.getElementById('tileGridEngineBox');
+            
+            tileGridBox.innerHTML = '';
+            shatterOverlayBox.style.display = 'block';
+
+            // Programmatically generating 16 explicit unrolled texture grid anchors
+            for(let i = 0; i < 16; i++) {
+                const nodeTile = document.createElement('div');
+                nodeTile.className = 'tile-node';
+                
+                const coordinateXPercentage = (i % 4) * 33.333;
+                const coordinateYPercentage = Math.floor(i / 4) * 33.333;
+                nodeTile.style.backgroundPosition = `${coordinateXPercentage}% ${coordinateYPercentage}%`;
+                tileGridBox.appendChild(nodeTile);
+            }
+
+            setTimeout(() => {
+                const generatedTilesCollection = document.querySelectorAll('.tile-node');
+                generatedTilesCollection.forEach(t => {
+                    const randomXTrajectoryOffset = (Math.random() - 0.5) * 900;
+                    const randomYTrajectoryOffset = (Math.random() - 0.5) * 900;
+                    t.style.transform = `translate(${randomXTrajectoryOffset}px, ${randomYTrajectoryOffset}px) rotate(${randomXTrajectoryOffset / 2}deg)`;
+                    t.style.opacity = '0';
+                });
+                
+                document.getElementById('afterShatterPromptField').style.display = 'block';
+
+                setTimeout(() => {
+                    shatterOverlayBox.style.display = 'none';
+                    executeSlideDeckNavigation(1);
+                }, 2200);
+            }, 1400);
+        }
+
+        /* =========================================================================
+           14. ACCELEROMETER/TOUCH SWIPE EVENT INTERCEPTORS
+        ========================================================================= */
+        let initialTouchPositionXCoordinate = 0;
+        window.addEventListener('touchstart', (e) => {
+            initialTouchPositionXCoordinate = e.touches[0].clientX;
+        });
+        window.addEventListener('touchend', (e) => {
+            const executionDeltaX = e.changedTouches[0].clientX - initialTouchPositionXCoordinate;
+            if(Math.abs(executionDeltaX) > 65) {
+                if(executionDeltaX < 0 && activeSlideSystemIndex < totalSlideDOMNodesArray.length - 1) {
+                    executeSlideDeckNavigation(1);
+                }
+                if(executionDeltaX > 0 && activeSlideSystemIndex > 0) {
+                    executeSlideDeckNavigation(-1);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
